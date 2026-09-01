@@ -106,7 +106,7 @@ def _structured_law(title: str, evidence: list[CommitEvidence], affected_files: 
 
     This is not a second inference engine. It exposes what the existing title
     heuristic already implies and marks semantic prose as provisional. A later
-    reviewer/model can replace individual fields while retaining the commit
+    a downstream reviewer can replace individual fields while retaining the commit
     anchors in ``field_evidence``.
     """
     lowered = title.lower().rstrip(".")

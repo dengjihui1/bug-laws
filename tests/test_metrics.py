@@ -31,7 +31,7 @@ class MetricsTest(unittest.TestCase):
         self.assertEqual(result["primary"]["useful_rate"]["successes"], 1)
         self.assertEqual(result["primary"]["useful_rate"]["scorable"], 2)
         self.assertEqual(result["primary"]["severe_false_law_rate"]["successes"], 1)
-        self.assertEqual(result["model_pass_agreement"]["kappa"], 1.0)
+        self.assertEqual(result["independent_pass_agreement"]["kappa"], 1.0)
 
     def test_baseline_delta_and_group_breakdown_are_present(self) -> None:
         corpus = [{"sample_id": "S-1", "repository": "repo-a", "confidence_bucket": "high", "protected_fixes": 1}]

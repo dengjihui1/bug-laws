@@ -47,7 +47,7 @@ def calibrate_confidence(provenance: Iterable[dict[str, Any]], labels: Iterable[
         brier_sum += sum((value[0] - value[1]) ** 2 for value in values)
     return {
         "calibration_version": "calibration-v1",
-        "execution_profile": "model-assisted/public-evidence proxy",
+        "execution_profile": "automated/public-evidence proxy",
         "human_validity": "NOT ASSESSED",
         "n": total,
         "bins": bins,

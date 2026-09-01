@@ -22,7 +22,7 @@ def run_onboarding_proxy(items: Iterable[dict[str, Any]], queries: Iterable[str]
             subject_hits += token in subject_text
             law_context_hits += token in context_text
         cases.append({"query": query, "items": len(records), "subject_only_hits": subject_hits, "law_context_hits": law_context_hits, "delta": law_context_hits - subject_hits})
-    return {"study_version": "onboarding-proxy-v1", "execution_profile": "deterministic lexical proxy", "human_validity": "NOT ASSESSED", "n": len(records), "queries": cases, "interpretation": "retrieval proxy only; no human onboarding time, task success, or agent-behavior claim"}
+    return {"study_version": "onboarding-proxy-v1", "execution_profile": "deterministic lexical proxy", "human_validity": "NOT ASSESSED", "n": len(records), "queries": cases, "interpretation": "retrieval proxy only; no human onboarding time, task success, or tool-behavior claim"}
 
 
 def write_study(input_path: str | Path, output_path: str | Path) -> Path:

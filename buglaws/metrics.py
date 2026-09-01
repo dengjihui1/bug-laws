@@ -96,17 +96,17 @@ def calculate_metrics(
     useful_primary = _rates(primary_list)
     result: dict[str, Any] = {
         "metrics_version": "metrics-v1",
-        "execution_profile": "model-assisted/public-evidence",
+        "execution_profile": "automated/public-evidence",
         "human_validity": "NOT ASSESSED",
         "primary": useful_primary,
         "secondary": _rates(secondary_list),
         "by_group": _group_rates(primary_list, corpus),
-        "model_pass_agreement": {
+        "independent_pass_agreement": {
             "overlap": len(overlap_primary),
             "verdict_exact_agreement": sum(a["verdict"] == b["verdict"] for a, b in zip(overlap_primary, overlap_secondary, strict=True)),
             "verdict_agreement_rate": _wilson(sum(a["verdict"] == b["verdict"] for a, b in zip(overlap_primary, overlap_secondary, strict=True)), len(overlap_primary)),
             "kappa": _kappa([item["verdict"] for item in overlap_primary], [item["verdict"] for item in overlap_secondary]),
-            "label": "model-pass agreement; not human Cohen's kappa",
+            "label": "independent-pass agreement; not human Cohen's kappa",
         },
         "test_protection_confusion_primary_against_0_1_proxy": _protection_confusion(primary_list, corpus),
         "cluster_purity": {"status": "NOT ASSESSED", "reason": "No independent cluster labels are present in the automated proxy corpus."},

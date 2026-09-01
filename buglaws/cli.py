@@ -98,7 +98,7 @@ def build_parser() -> argparse.ArgumentParser:
     replay.add_argument("--command", dest="run_command", nargs="+", required=True)
     replay.add_argument("--output", required=True)
     replay.add_argument("--timeout", type=float, default=60.0)
-    study = subparsers.add_parser("study", help="run deterministic onboarding/agent proxy measurements")
+    study = subparsers.add_parser("study", help="run deterministic onboarding/tool proxy measurements")
     study.add_argument("--input", required=True, help="reviewer JSONL")
     study.add_argument("--output", required=True)
     return parser
