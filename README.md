@@ -56,6 +56,14 @@ flowchart LR
     J -. preserves source evidence .-> F
 ```
 
+### A real run
+
+This screenshot comes from a fresh local scan of the public `pallets/click`
+repository (`80` fix commits inspected). The generated wall keeps recurrence,
+test-protection signals, and the review boundary visible in one place.
+
+![Fresh Click scan rendered as an evidence wall](assets/bug-laws-demo-run.png)
+
 The key boundary is intentional: extraction can be automatic, but project
 guidance is created only through an explicit review decision. The scanner never
 writes back into the source repository.
