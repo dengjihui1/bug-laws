@@ -37,6 +37,11 @@ Evidence: commit hashes, issue references, files, guards, test names
 
 ## How it works
 
+![Bug Laws workflow](assets/bug-laws-workflow.png)
+
+The visual overview is paired with the editable Mermaid version below so the
+workflow remains easy to inspect, adapt, and reuse.
+
 ```mermaid
 flowchart LR
     A[Local Git repository] --> B[Select bug-fix, regression, revert history]
