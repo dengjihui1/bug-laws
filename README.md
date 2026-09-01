@@ -2,7 +2,7 @@
 
 > Every bug fix writes a law. Most repositories forget to publish it.
 
-Project roadmap, validation protocol, task pool, risks, and maintenance handoff instructions live in [`project-management/`](project-management/README.md).
+The public package includes the executable workflow, reproducible demos, release checks, and evidence boundaries needed to inspect every result.
 
 Bug Laws is a Python-first repository archaeology tool. It reads bug-fix and revert history, recovers candidate engineering invariants, groups repeated violations, and shows which fixes changed no regression tests.
 
