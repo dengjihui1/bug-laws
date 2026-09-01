@@ -1,0 +1,1094 @@
+{
+  "repository": "github.com/pallets/click",
+  "generated_at": "2026-08-31T23:54:36.292119+00:00",
+  "since": "5 years ago",
+  "commits_seen": 807,
+  "candidate_commits": 80,
+  "laws": [
+    {
+      "law_id": "LAW-001",
+      "title": "Fish multiline help complete",
+      "confidence": 0.8,
+      "evidence": [
+        {
+          "commit": "19fd4d6e18bc9fce451f92f422696b11169faa57",
+          "date": "2026-04-30T01:37:31+02:00",
+          "subject": "Fix: Ensure fish completion handles multiline help strings correctly (#3126)",
+          "issue_refs": [
+            "3126"
+          ],
+          "source_files": [
+            "src/click/shell_completion.py"
+          ],
+          "test_files": [
+            "tests/test_shell_completion.py"
+          ],
+          "signals": [
+            "guard:if test $metadata[3] != \"_\";",
+            "test:test_fish_multiline_help_complete",
+            "guard:assert result.exit_code == 0",
+            "guard:if lines[i] == \"plain\" and lines[i + 1] in (\"--at\", \"--attachment-type\"):",
+            "guard:assert \"\\\\n\" in help_line",
+            "guard:assert \"image.jpg\" in help_line.replace(\"\\\\n\", \" \")"
+          ],
+          "candidate_title": "Fish multiline help complete",
+          "confidence": 0.95
+        },
+        {
+          "commit": "b7e5fd4cc7de70280eccd39f2bb956df617e5519",
+          "date": "2026-05-23T15:05:16+08:00",
+          "subject": "Fix broken fish completion and multiline help string",
+          "issue_refs": [],
+          "source_files": [
+            "src/click/shell_completion.py"
+          ],
+          "test_files": [
+            "tests/test_shell_completion.py"
+          ],
+          "signals": [
+            "guard:if item.help:"
+          ],
+          "candidate_title": "Required behavior: broken fish completion and multiline help string",
+          "confidence": 0.73
+        },
+        {
+          "commit": "c3535905c77a29afc84861b29d3ad366ce5451bd",
+          "date": "2026-05-23T15:05:16+08:00",
+          "subject": "Fix broken fish completion and multiline help string",
+          "issue_refs": [],
+          "source_files": [
+            "src/click/shell_completion.py"
+          ],
+          "test_files": [
+            "tests/test_shell_completion.py"
+          ],
+          "signals": [
+            "guard:if item.help:"
+          ],
+          "candidate_title": "Required behavior: broken fish completion and multiline help string",
+          "confidence": 0.73
+        }
+      ],
+      "affected_files": [
+        "src/click/shell_completion.py"
+      ],
+      "recurrence": 3,
+      "protected_fixes": 3,
+      "unprotected_fixes": 0
+    },
+    {
+      "law_id": "LAW-002",
+      "title": "Flag value optional behavior",
+      "confidence": 0.93,
+      "evidence": [
+        {
+          "commit": "4fd2fea0db423d242aedcae0a5f664efe0a93484",
+          "date": "2025-05-20T08:35:46-04:00",
+          "subject": "Fix condition for setting flag value when type is provided",
+          "issue_refs": [],
+          "source_files": [
+            "src/click/core.py"
+          ],
+          "test_files": [
+            "tests/test_options.py"
+          ],
+          "signals": [
+            "guard:if is_flag and flag_value is None:",
+            "test:test_flag_value_is_correctly_set",
+            "guard:assert result.output == f\"{expected}\\n\"",
+            "test:test_non_flag_with_non_negatable_default",
+            "guard:raise ValueError(\"Cannot negate this object\")",
+            "guard:assert result.exit_code == 0"
+          ],
+          "candidate_title": "Flag value is correctly set",
+          "confidence": 0.9
+        },
+        {
+          "commit": "91de59c6c8abc8251e7af551cd4546cc964288af",
+          "date": "2025-10-07T20:52:09+05:30",
+          "subject": "Fix #3084: Correct flag optional value behavior and add comprehensive tests",
+          "issue_refs": [
+            "3084"
+          ],
+          "source_files": [
+            "src/click/core.py"
+          ],
+          "test_files": [
+            "tests/test_options.py"
+          ],
+          "signals": [
+            "test:test_flag_value_optional_behavior",
+            "guard:assert result.exit_code == 0",
+            "guard:assert result.output == \"Hello, Flag!\\n\"",
+            "test:test_flag_value_with_type_conversion",
+            "guard:assert result.exit_code == 0",
+            "guard:assert result.output == \"Line 1\\n\""
+          ],
+          "candidate_title": "Flag value optional behavior",
+          "confidence": 0.95
+        }
+      ],
+      "affected_files": [
+        "src/click/core.py"
+      ],
+      "recurrence": 2,
+      "protected_fixes": 2,
+      "unprotected_fixes": 0
+    },
+    {
+      "law_id": "LAW-003",
+      "title": "Full prompt passed to readline",
+      "confidence": 0.95,
+      "evidence": [
+        {
+          "commit": "2468b70997a6ec27ced4b4867954c90da3f92075",
+          "date": "2026-04-29T16:20:22-07:00",
+          "subject": "Fix readline backspace/line-wrapping on linux (#2969)",
+          "issue_refs": [
+            "2969"
+          ],
+          "source_files": [
+            "src/click/termui.py"
+          ],
+          "test_files": [
+            "tests/test_utils.py"
+          ],
+          "signals": [
+            "guard:if WIN:",
+            "guard:if err:",
+            "guard:assert out == \"\\ninterrupted\\n\"",
+            "test:test_full_prompt_passed_to_readline",
+            "guard:assert received == [expected_prompt]",
+            "guard:assert out == \"\"",
+            "guard:assert err == \"Prompt to stderr: \"",
+            "guard:assert out == \"\"",
+            "guard:assert err == \"Prompt to stderr with no suffix\"",
+            "guard:assert out == \"\"",
+            "guard:assert err == \"Prompt to stderr [y/N]: \"",
+            "guard:assert out == \"\""
+          ],
+          "candidate_title": "Full prompt passed to readline",
+          "confidence": 0.95
+        }
+      ],
+      "affected_files": [
+        "src/click/termui.py"
+      ],
+      "recurrence": 1,
+      "protected_fixes": 1,
+      "unprotected_fixes": 0
+    },
+    {
+      "law_id": "LAW-004",
+      "title": "Zsh full complete with colons",
+      "confidence": 0.95,
+      "evidence": [
+        {
+          "commit": "a1235aacb1be55dc66ddcfefbf64dec44b6ab54d",
+          "date": "2025-07-21T21:35:04+02:00",
+          "subject": "Fix Zsh completions with colons (#2846)",
+          "issue_refs": [
+            "2846"
+          ],
+          "source_files": [
+            "src/click/shell_completion.py"
+          ],
+          "test_files": [
+            "tests/test_shell_completion.py"
+          ],
+          "signals": [
+            "test:test_zsh_full_complete_with_colons",
+            "guard:assert result.output == expect"
+          ],
+          "candidate_title": "Zsh full complete with colons",
+          "confidence": 0.95
+        }
+      ],
+      "affected_files": [
+        "src/click/shell_completion.py"
+      ],
+      "recurrence": 1,
+      "protected_fixes": 1,
+      "unprotected_fixes": 0
+    },
+    {
+      "law_id": "LAW-005",
+      "title": "Version option resolves import name to distribution",
+      "confidence": 0.9,
+      "evidence": [
+        {
+          "commit": "bec59289d8cf9b9b4010642b2fee483e5f8eeefc",
+          "date": "2026-06-11T09:59:39+04:00",
+          "subject": "Fix `package_name` resolution when top-level module differs from distribution name",
+          "issue_refs": [],
+          "source_files": [
+            "src/click/decorators.py"
+          ],
+          "test_files": [
+            "tests/test_basic.py"
+          ],
+          "signals": [
+            "guard:if len(distributions) == 1:",
+            "guard:elif len(distributions) > 1:",
+            "guard:raise RuntimeError(",
+            "guard:raise RuntimeError(",
+            "test:test_version_option_resolves_import_name_to_distribution",
+            "guard:if name == \"pillow\":",
+            "guard:raise importlib.metadata.PackageNotFoundError(name)",
+            "guard:assert result.exit_code == 0",
+            "guard:assert \"10.4.0\" in result.output",
+            "test:test_version_option_ambiguous_import_name_errors",
+            "guard:raise importlib.metadata.PackageNotFoundError(name)",
+            "guard:assert result.exit_code != 0"
+          ],
+          "candidate_title": "Version option resolves import name to distribution",
+          "confidence": 0.9
+        }
+      ],
+      "affected_files": [
+        "src/click/decorators.py"
+      ],
+      "recurrence": 1,
+      "protected_fixes": 1,
+      "unprotected_fixes": 0
+    },
+    {
+      "law_id": "LAW-006",
+      "title": "Choice argument optional metavar",
+      "confidence": 0.9,
+      "evidence": [
+        {
+          "commit": "762c97eef7c1b3779678992f26a553a2a8c80793",
+          "date": "2026-06-10T17:26:48+04:00",
+          "subject": "Fix double-bracketing of choices in synopsis",
+          "issue_refs": [],
+          "source_files": [
+            "src/click/core.py"
+          ],
+          "test_files": [
+            "tests/test_basic.py"
+          ],
+          "signals": [
+            "guard:if not self.required and not already_bracketed:",
+            "test:test_choice_argument_optional_metavar",
+            "guard:assert \"Usage: cli-variadic [OPTIONS] [foo|bar|baz]...\\n\" in variadic",
+            "guard:assert \"[[foo|bar|baz]]\" not in variadic",
+            "guard:assert \"Usage: cli-optional [OPTIONS] [foo|bar|baz]\\n\" in optional",
+            "guard:assert \"[[foo|bar|baz]]\" not in optional",
+            "test:test_datetime_argument_optional_metavar",
+            "guard:assert \"Usage: cli [OPTIONS] [%Y-%m-%d]\\n\" in result.output",
+            "guard:assert \"[[%Y-%m-%d]]\" not in result.output"
+          ],
+          "candidate_title": "Choice argument optional metavar",
+          "confidence": 0.9
+        }
+      ],
+      "affected_files": [
+        "src/click/core.py"
+      ],
+      "recurrence": 1,
+      "protected_fixes": 1,
+      "unprotected_fixes": 0
+    },
+    {
+      "law_id": "LAW-007",
+      "title": "Echo via pager yields before exception",
+      "confidence": 0.9,
+      "evidence": [
+        {
+          "commit": "7eb57cff7cd292fbd526eaf861c8f945ddeb07a3",
+          "date": "2026-05-22T11:13:12+02:00",
+          "subject": "Fix pager test race by raising before yield",
+          "issue_refs": [],
+          "source_files": [
+            "src/click/_compat.py"
+          ],
+          "test_files": [
+            "tests/test_stream_lifecycle.py",
+            "tests/test_utils.py"
+          ],
+          "signals": [
+            "guard:raise RuntimeError(\"This is a test.\")",
+            "test:test_echo_via_pager_yields_before_exception",
+            "guard:assert \"\".join(writes) == \"test\", (",
+            "test:test_stress_echo_via_pager_exception_cleanup",
+            "guard:assert spawned, \"pager subprocess was never started\"",
+            "guard:assert p.returncode is not None, \"pager subprocess not reaped\""
+          ],
+          "candidate_title": "Echo via pager yields before exception",
+          "confidence": 0.9
+        }
+      ],
+      "affected_files": [
+        "src/click/_compat.py"
+      ],
+      "recurrence": 1,
+      "protected_fixes": 1,
+      "unprotected_fixes": 0
+    },
+    {
+      "law_id": "LAW-008",
+      "title": "Deprecated empty help no leading space",
+      "confidence": 0.9,
+      "evidence": [
+        {
+          "commit": "82f377c547e1867d073f02bb8f476214d07e245b",
+          "date": "2026-05-23T15:52:07+02:00",
+          "subject": "Fix deprecated label formatting",
+          "issue_refs": [],
+          "source_files": [
+            "src/click/core.py"
+          ],
+          "test_files": [
+            "tests/test_commands.py",
+            "tests/test_options.py"
+          ],
+          "signals": [
+            "test:test_deprecated_empty_help_no_leading_space",
+            "guard:assert \"\\n  (DEPRECATED\" in out",
+            "guard:assert \"\\n   (DEPRECATED\" not in out",
+            "test:test_deprecated_empty_help_no_leading_space",
+            "guard:assert opt.get_help_record(ctx)[1] == expected"
+          ],
+          "candidate_title": "Deprecated empty help no leading space",
+          "confidence": 0.9
+        }
+      ],
+      "affected_files": [
+        "src/click/core.py"
+      ],
+      "recurrence": 1,
+      "protected_fixes": 1,
+      "unprotected_fixes": 0
+    },
+    {
+      "law_id": "LAW-009",
+      "title": "Parameter source during paramtype convert",
+      "confidence": 0.9,
+      "evidence": [
+        {
+          "commit": "7d05a59b9d46a415d85937630d1d812cf477f60a",
+          "date": "2026-05-19T19:43:26-04:00",
+          "subject": "Fix get_parameter_source() during type conversion and eager callbacks",
+          "issue_refs": [],
+          "source_files": [
+            "src/click/core.py"
+          ],
+          "test_files": [
+            "tests/test_defaults.py",
+            "tests/test_options.py"
+          ],
+          "signals": [
+            "guard:elif existing_source is not None:",
+            "test:test_parameter_source_during_paramtype_convert",
+            "guard:assert not result.exception",
+            "guard:assert \"default: {'value': '/tmp/file', 'source': \" in result.output",
+            "guard:assert \"'source': None}\" not in result.output.split(\"default:\")[1].split(\"\\n\")[0]",
+            "guard:assert (",
+            "guard:assert not result.exception",
+            "guard:assert (",
+            "guard:assert (",
+            "test:test_parameter_source_during_eager_callback",
+            "guard:assert not result.exception",
+            "guard:assert \"callback source=DEFAULT\" in result.output"
+          ],
+          "candidate_title": "Parameter source during paramtype convert",
+          "confidence": 0.9
+        }
+      ],
+      "affected_files": [
+        "src/click/core.py"
+      ],
+      "recurrence": 1,
+      "protected_fixes": 1,
+      "unprotected_fixes": 0
+    },
+    {
+      "law_id": "LAW-010",
+      "title": "Help formatter write usage",
+      "confidence": 0.9,
+      "evidence": [
+        {
+          "commit": "0551bf53588ae87f462d336f24f853a156fefe3a",
+          "date": "2026-05-16T08:19:58+02:00",
+          "subject": "Fix `HelpFormatter.write_usage` producing spurious characters",
+          "issue_refs": [],
+          "source_files": [
+            "src/click/formatting.py"
+          ],
+          "test_files": [
+            "tests/test_formatting.py"
+          ],
+          "signals": [
+            "guard:if not args:",
+            "test:test_help_formatter_write_usage",
+            "guard:if prefix is None:",
+            "guard:assert f.getvalue() == expected",
+            "test:test_help_formatter_write_usage_without_args_styled_prefix",
+            "guard:assert strip_ansi(rendered) == \"Usage: cli\\n\"",
+            "guard:assert \"\\x1b[\" in rendered",
+            "test:test_command_write_usage_no_args",
+            "guard:assert result.output.splitlines()[0] == expected_usage_line"
+          ],
+          "candidate_title": "Help formatter write usage",
+          "confidence": 0.9
+        }
+      ],
+      "affected_files": [
+        "src/click/formatting.py"
+      ],
+      "recurrence": 1,
+      "protected_fixes": 1,
+      "unprotected_fixes": 0
+    },
+    {
+      "law_id": "LAW-011",
+      "title": "Bool flag group competition",
+      "confidence": 0.9,
+      "evidence": [
+        {
+          "commit": "0f71fe771ceefd5715b3b375c9b2e3a701c0648e",
+          "date": "2026-05-15T11:55:32+02:00",
+          "subject": "Fix dual-option arbitration to respect explicit defaults",
+          "issue_refs": [],
+          "source_files": [
+            "src/click/core.py"
+          ],
+          "test_files": [
+            "tests/test_options.py"
+          ],
+          "signals": [
+            "guard:if is_winner:",
+            "guard:if self.expose_value:",
+            "guard:elif existing_source is None:",
+            "test:test_bool_flag_group_competition",
+            "guard:assert result.exit_code == 0, result.output",
+            "guard:assert result.output == repr(expected)",
+            "test:test_bool_flag_group_competition_with_envvar",
+            "guard:assert result.exit_code == 0, result.output",
+            "guard:assert result.output == repr(expected)",
+            "test:test_bool_flag_group_competition_with_default_map",
+            "guard:assert result.exit_code == 0, result.output",
+            "guard:assert result.output == repr(expected)"
+          ],
+          "candidate_title": "Bool flag group competition",
+          "confidence": 0.9
+        }
+      ],
+      "affected_files": [
+        "src/click/core.py"
+      ],
+      "recurrence": 1,
+      "protected_fixes": 1,
+      "unprotected_fixes": 0
+    },
+    {
+      "law_id": "LAW-012",
+      "title": "Hide input error message",
+      "confidence": 0.9,
+      "evidence": [
+        {
+          "commit": "a09c1c655eef3d43181eb46036b66cf058d72df4",
+          "date": "2026-03-11T01:28:21+09:00",
+          "subject": "fix: show custom error message in prompt with hide_input=True",
+          "issue_refs": [],
+          "source_files": [
+            "src/click/termui.py"
+          ],
+          "test_files": [
+            "tests/test_termui.py"
+          ],
+          "signals": [
+            "guard:if repr_val in e.message:",
+            "guard:elif value in e.message:",
+            "guard:if len(value) < 4:",
+            "guard:if value == \"bad\":",
+            "test:test_hide_input_error_message",
+            "guard:assert expected_fragment in result.output",
+            "guard:if unexpected_fragment is not None:",
+            "guard:assert unexpected_fragment not in result.output"
+          ],
+          "candidate_title": "Hide input error message",
+          "confidence": 0.9
+        }
+      ],
+      "affected_files": [
+        "src/click/termui.py"
+      ],
+      "recurrence": 1,
+      "protected_fixes": 1,
+      "unprotected_fixes": 0
+    },
+    {
+      "law_id": "LAW-013",
+      "title": "Show default with empty string",
+      "confidence": 0.9,
+      "evidence": [
+        {
+          "commit": "d340b0c1202284a1b9d0ca892549208527d586ce",
+          "date": "2026-04-01T18:42:50+02:00",
+          "subject": "Fix speculative speculative empty string check",
+          "issue_refs": [],
+          "source_files": [
+            "src/click/core.py"
+          ],
+          "test_files": [
+            "tests/test_options.py"
+          ],
+          "signals": [
+            "guard:elif isinstance(default_value, str) and default_value == \"\":",
+            "guard:if isinstance(other, str):",
+            "guard:raise ValueError(\"cannot compare to string\")",
+            "test:test_show_default_with_empty_string",
+            "guard:assert expected in message"
+          ],
+          "candidate_title": "Show default with empty string",
+          "confidence": 0.9
+        }
+      ],
+      "affected_files": [
+        "src/click/core.py"
+      ],
+      "recurrence": 1,
+      "protected_fixes": 1,
+      "unprotected_fixes": 0
+    },
+    {
+      "law_id": "LAW-014",
+      "title": "Default map with callable flag value",
+      "confidence": 0.9,
+      "evidence": [
+        {
+          "commit": "546f2851f414b07413777ebcae89b2c21a685252",
+          "date": "2026-02-21T18:01:42+04:00",
+          "subject": "Fix callable ``flag_value`` being instantiated when used as a default",
+          "issue_refs": [],
+          "source_files": [
+            "src/click/core.py"
+          ],
+          "test_files": [
+            "tests/test_defaults.py",
+            "tests/test_options.py"
+          ],
+          "signals": [
+            "guard:if value is True and self.is_flag:",
+            "guard:elif call and callable(value):",
+            "test:test_default_map_with_callable_flag_value",
+            "guard:if default_map is not None:",
+            "guard:assert result.exit_code == 0",
+            "guard:assert result.output == repr(expected)",
+            "test:test_callable_flag_value_not_instantiated",
+            "guard:assert result.exit_code == 0",
+            "guard:if isinstance(expected, re.Pattern):",
+            "guard:assert re.match(expected, result.output)",
+            "guard:assert result.output == repr(expected)",
+            "test:test_callable_flag_value_default_map"
+          ],
+          "candidate_title": "Default map with callable flag value",
+          "confidence": 0.9
+        }
+      ],
+      "affected_files": [
+        "src/click/core.py"
+      ],
+      "recurrence": 1,
+      "protected_fixes": 1,
+      "unprotected_fixes": 0
+    },
+    {
+      "law_id": "LAW-015",
+      "title": "Shared param prefers first default",
+      "confidence": 0.9,
+      "evidence": [
+        {
+          "commit": "1c20dc6e724cd5625faaa17b715ba928d44c08bf",
+          "date": "2025-09-22T08:55:58-05:00",
+          "subject": "Fix default handling to defer UNSET normalization",
+          "issue_refs": [],
+          "source_files": [
+            "src/click/core.py"
+          ],
+          "test_files": [
+            "tests/test_defaults.py"
+          ],
+          "signals": [
+            "guard:if value is UNSET:",
+            "test:test_shared_param_prefers_first_default",
+            "guard:assert \"green\" in result.output",
+            "guard:assert \"red\" in result.output",
+            "guard:assert \"red\" in result.output",
+            "guard:assert \"green\" in result.output"
+          ],
+          "candidate_title": "Shared param prefers first default",
+          "confidence": 0.9
+        }
+      ],
+      "affected_files": [
+        "src/click/core.py"
+      ],
+      "recurrence": 1,
+      "protected_fixes": 1,
+      "unprotected_fixes": 0
+    },
+    {
+      "law_id": "LAW-016",
+      "title": "Choice default rendering",
+      "confidence": 0.9,
+      "evidence": [
+        {
+          "commit": "e252437313eb364212fdb2d200902e2e8d28f3f9",
+          "date": "2025-07-22T03:20:02-07:00",
+          "subject": "Revert \"Revert \"Merge Stable into master\"\"",
+          "issue_refs": [],
+          "source_files": [
+            "src/click/core.py",
+            "src/click/exceptions.py",
+            "src/click/shell_completion.py",
+            "src/click/testing.py"
+          ],
+          "test_files": [
+            "tests/test_options.py",
+            "tests/test_shell_completion.py",
+            "tests/test_testing.py"
+          ],
+          "signals": [
+            "guard:elif isinstance(default_value, enum.Enum):",
+            "guard:if sys.version_info < (3, 11):",
+            "guard:assert (",
+            "test:test_choice_default_rendering",
+            "guard:assert cli_with_choices.params[0].default == default",
+            "guard:if default_string is None:",
+            "guard:assert extra_usage not in result.output",
+            "guard:assert extra_usage in result.output",
+            "test:test_zsh_full_complete_with_colons",
+            "guard:assert result.output == expect",
+            "guard:assert err.getvalue() == b\"\\\\udce2\"",
+            "guard:assert err.getvalue() == b\"\\\\udce2\""
+          ],
+          "candidate_title": "Choice default rendering",
+          "confidence": 0.9
+        }
+      ],
+      "affected_files": [
+        "src/click/core.py",
+        "src/click/exceptions.py",
+        "src/click/shell_completion.py",
+        "src/click/testing.py"
+      ],
+      "recurrence": 1,
+      "protected_fixes": 1,
+      "unprotected_fixes": 0
+    },
+    {
+      "law_id": "LAW-017",
+      "title": "Nested group",
+      "confidence": 0.9,
+      "evidence": [
+        {
+          "commit": "ac6a2acfdb4550c35ce69ce54db502ba96c96324",
+          "date": "2025-05-12T13:18:11+02:00",
+          "subject": "Fix shell completion for nested groups",
+          "issue_refs": [],
+          "source_files": [
+            "src/click/shell_completion.py"
+          ],
+          "test_files": [
+            "tests/test_shell_completion.py"
+          ],
+          "signals": [
+            "test:test_nested_group",
+            "guard:assert _get_words(cli, [], \"\") == [\"get\"]",
+            "guard:assert _get_words(cli, [\"get\"], \"\") == [\"full\"]",
+            "guard:assert _get_words(cli, [\"get\", \"full\"], \"\") == [\"data\"]",
+            "guard:assert _get_words(cli, [\"get\", \"full\"], \"-\") == [\"--verbose\", \"--help\"]",
+            "guard:assert _get_words(cli, [\"get\", \"full\", \"data\"], \"\") == []",
+            "guard:assert _get_words(cli, [\"get\", \"full\", \"data\"], \"-\") == [\"-a\", \"--help\"]"
+          ],
+          "candidate_title": "Nested group",
+          "confidence": 0.9
+        }
+      ],
+      "affected_files": [
+        "src/click/shell_completion.py"
+      ],
+      "recurrence": 1,
+      "protected_fixes": 1,
+      "unprotected_fixes": 0
+    },
+    {
+      "law_id": "LAW-018",
+      "title": "Required behavior: completions for quoted/escaped parameters in Fish",
+      "confidence": 0.78,
+      "evidence": [
+        {
+          "commit": "701b313160be12752e49b3f7cea32402c0969a69",
+          "date": "2025-08-09T06:43:46-07:00",
+          "subject": "Fix completions for quoted/escaped parameters in Fish (#3013)",
+          "issue_refs": [
+            "3013"
+          ],
+          "source_files": [
+            "src/click/shell_completion.py"
+          ],
+          "test_files": [
+            "tests/test_shell_completion.py"
+          ],
+          "signals": [
+            "guard:if incomplete:"
+          ],
+          "candidate_title": "Required behavior: completions for quoted/escaped parameters in Fish",
+          "confidence": 0.78
+        }
+      ],
+      "affected_files": [
+        "src/click/shell_completion.py"
+      ],
+      "recurrence": 1,
+      "protected_fixes": 1,
+      "unprotected_fixes": 0
+    },
+    {
+      "law_id": "LAW-019",
+      "title": "Required behavior: rendering when `prompt_suffix` is empty",
+      "confidence": 0.73,
+      "evidence": [
+        {
+          "commit": "812b8000f79c1fbb747a2de5114fc74515558857",
+          "date": "2025-07-28T16:56:51-07:00",
+          "subject": "Fix rendering when `prompt_suffix` is empty",
+          "issue_refs": [],
+          "source_files": [
+            "src/click/termui.py"
+          ],
+          "test_files": [
+            "tests/test_utils.py"
+          ],
+          "signals": [
+            "guard:assert out == \"Prompt to stdin with no suffix\"",
+            "guard:assert err == \"\"",
+            "guard:assert out == \"x\"",
+            "guard:assert err == \"Prompt to stderr with no suffi\"",
+            "guard:assert out == \"Prompt to stdin with no suffix [y/N]\"",
+            "guard:assert err == \"\"",
+            "guard:assert out == \"]\"",
+            "guard:assert err == \"Prompt to stderr with no suffix [y/N\""
+          ],
+          "candidate_title": "Required behavior: rendering when `prompt_suffix` is empty",
+          "confidence": 0.73
+        }
+      ],
+      "affected_files": [
+        "src/click/termui.py"
+      ],
+      "recurrence": 1,
+      "protected_fixes": 1,
+      "unprotected_fixes": 0
+    },
+    {
+      "law_id": "LAW-020",
+      "title": "Required behavior: merge Stable into master",
+      "confidence": 0.73,
+      "evidence": [
+        {
+          "commit": "8bc912710774c7b4c84f5d4effd0c764f3e2bbb9",
+          "date": "2025-07-22T03:04:08-07:00",
+          "subject": "Revert \"Merge Stable into master\"",
+          "issue_refs": [],
+          "source_files": [
+            "src/click/core.py",
+            "src/click/exceptions.py",
+            "src/click/shell_completion.py",
+            "src/click/testing.py"
+          ],
+          "test_files": [
+            "tests/test_options.py",
+            "tests/test_shell_completion.py",
+            "tests/test_testing.py"
+          ],
+          "signals": [
+            "guard:return f\"{item.type}\\n{item.value}\\n{item.help if item.help else '_'}\"",
+            "guard:assert f\"[{'|'.join([str(i) for i in choices])}]\" in result.output",
+            "guard:assert err.getvalue() == b\"\\\\udce2\"",
+            "guard:assert err.getvalue() == b\"\\\\udce2\""
+          ],
+          "candidate_title": "Required behavior: merge Stable into master",
+          "confidence": 0.73
+        }
+      ],
+      "affected_files": [
+        "src/click/core.py",
+        "src/click/exceptions.py",
+        "src/click/shell_completion.py",
+        "src/click/testing.py"
+      ],
+      "recurrence": 1,
+      "protected_fixes": 1,
+      "unprotected_fixes": 0
+    },
+    {
+      "law_id": "LAW-021",
+      "title": "Required behavior: reconciliation of envvar with default, flag_value and type parameters for flag options",
+      "confidence": 0.73,
+      "evidence": [
+        {
+          "commit": "9caedb9206103dfb5465e1916bc2f13b9c10c0e4",
+          "date": "2025-05-28T19:47:01+04:00",
+          "subject": "Fix reconciliation of envvar with default, flag_value and type parameters for flag options",
+          "issue_refs": [],
+          "source_files": [
+            "src/click/core.py",
+            "src/click/types.py"
+          ],
+          "test_files": [
+            "tests/test_arguments.py",
+            "tests/test_basic.py",
+            "tests/test_imports.py",
+            "tests/test_options.py"
+          ],
+          "signals": [
+            "guard:elif self.secondary_opts:",
+            "guard:if is_flag:",
+            "guard:if self.default is None and not self.required and not self.prompt:",
+            "guard:if multiple:",
+            "guard:if flag_value is None:",
+            "guard:if self.default is None:",
+            "guard:if param.name == self.name and param.default is not None:",
+            "guard:if it does not.",
+            "guard:if self.is_flag and not self.is_bool_flag:",
+            "guard:if self.flag_value is not None and rv == self.flag_value:",
+            "guard:elif (",
+            "guard:if isinstance(value, bool):"
+          ],
+          "candidate_title": "Required behavior: reconciliation of envvar with default, flag_value and type parameters for flag options",
+          "confidence": 0.73
+        }
+      ],
+      "affected_files": [
+        "src/click/core.py",
+        "src/click/types.py"
+      ],
+      "recurrence": 1,
+      "protected_fixes": 1,
+      "unprotected_fixes": 0
+    },
+    {
+      "law_id": "LAW-022",
+      "title": "Required behavior: testing/CliRunner: Fix regression related to EOF introduced in 262bdf0",
+      "confidence": 0.73,
+      "evidence": [
+        {
+          "commit": "93c6966eb3a575c2b600434d1cc9f4b3aee505ac",
+          "date": "2025-05-22T22:14:23+02:00",
+          "subject": "testing/CliRunner: Fix regression related to EOF introduced in 262bdf0",
+          "issue_refs": [],
+          "source_files": [
+            "src/click/testing.py"
+          ],
+          "test_files": [
+            "tests/test_chain.py"
+          ],
+          "signals": [
+            "guard:except StopIteration as e:",
+            "guard:raise EOFError() from e",
+            "guard:except StopIteration as e:",
+            "guard:raise EOFError() from e",
+            "guard:assert not result.exception",
+            "guard:assert result.output.splitlines() == expect"
+          ],
+          "candidate_title": "Required behavior: testing/CliRunner: Fix regression related to EOF introduced in 262bdf0",
+          "confidence": 0.73
+        }
+      ],
+      "affected_files": [
+        "src/click/testing.py"
+      ],
+      "recurrence": 1,
+      "protected_fixes": 1,
+      "unprotected_fixes": 0
+    },
+    {
+      "law_id": "LAW-023",
+      "title": "Required behavior: skip flaky pager test on macOS with free-threaded Python 3.14t",
+      "confidence": 0.63,
+      "evidence": [
+        {
+          "commit": "d15f3c23a177e80c324e1ee9681c9449c31ac965",
+          "date": "2026-05-18T12:46:02-07:00",
+          "subject": "fix: Skip flaky pager test on macOS with free-threaded Python 3.14t",
+          "issue_refs": [],
+          "source_files": [
+            "src/click/_compat.py"
+          ],
+          "test_files": [
+            "tests/test_utils.py"
+          ],
+          "signals": [],
+          "candidate_title": "Required behavior: skip flaky pager test on macOS with free-threaded Python 3.14t",
+          "confidence": 0.63
+        }
+      ],
+      "affected_files": [
+        "src/click/_compat.py"
+      ],
+      "recurrence": 1,
+      "protected_fixes": 1,
+      "unprotected_fixes": 0
+    },
+    {
+      "law_id": "LAW-024",
+      "title": "Required behavior: sentinel typing and its uses in parser",
+      "confidence": 0.6,
+      "evidence": [
+        {
+          "commit": "73e155006526575548d143ef519995f540547e52",
+          "date": "2026-05-04T21:03:00+01:00",
+          "subject": "Fix sentinel typing and its uses in parser (#3396)",
+          "issue_refs": [
+            "3396"
+          ],
+          "source_files": [
+            "src/click/_utils.py",
+            "src/click/core.py",
+            "src/click/parser.py"
+          ],
+          "test_files": [],
+          "signals": [
+            "guard:if spos is None:"
+          ],
+          "candidate_title": "Required behavior: sentinel typing and its uses in parser",
+          "confidence": 0.6
+        }
+      ],
+      "affected_files": [
+        "src/click/_utils.py",
+        "src/click/core.py",
+        "src/click/parser.py"
+      ],
+      "recurrence": 1,
+      "protected_fixes": 0,
+      "unprotected_fixes": 1
+    },
+    {
+      "law_id": "LAW-025",
+      "title": "Required behavior: `_termui_impl.open_url()` — 'start' on Windows is a cmd built-in, not an executable",
+      "confidence": 0.6,
+      "evidence": [
+        {
+          "commit": "c5cced7b3096804567688df645194e3ed3dfa88b",
+          "date": "2026-04-30T01:25:38+02:00",
+          "subject": "fix: `_termui_impl.open_url()` — 'start' on Windows is a cmd built-in, not an executable (#3186)",
+          "issue_refs": [
+            "3186"
+          ],
+          "source_files": [
+            "src/click/_termui_impl.py"
+          ],
+          "test_files": [],
+          "signals": [
+            "guard:except OSError:",
+            "guard:except OSError:"
+          ],
+          "candidate_title": "Required behavior: `_termui_impl.open_url()` — 'start' on Windows is a cmd built-in, not an executable",
+          "confidence": 0.6
+        }
+      ],
+      "affected_files": [
+        "src/click/_termui_impl.py"
+      ],
+      "recurrence": 1,
+      "protected_fixes": 0,
+      "unprotected_fixes": 1
+    },
+    {
+      "law_id": "LAW-026",
+      "title": "Required behavior: ruff E501 line-too-long in PowerShell template",
+      "confidence": 0.55,
+      "evidence": [
+        {
+          "commit": "1ac08db953684e10ed97adbbda81381efd82ce09",
+          "date": "2026-06-26T11:36:56+01:00",
+          "subject": "Fix ruff E501 line-too-long in PowerShell template",
+          "issue_refs": [],
+          "source_files": [
+            "src/click/shell_completion.py"
+          ],
+          "test_files": [],
+          "signals": [
+            "guard:if ($_.PSIsContainer) { $kind = 'ProviderContainer' }"
+          ],
+          "candidate_title": "Required behavior: ruff E501 line-too-long in PowerShell template",
+          "confidence": 0.55
+        }
+      ],
+      "affected_files": [
+        "src/click/shell_completion.py"
+      ],
+      "recurrence": 1,
+      "protected_fixes": 0,
+      "unprotected_fixes": 1
+    },
+    {
+      "law_id": "LAW-027",
+      "title": "Required behavior: generic typed dict `TypeError` on Python 3.10",
+      "confidence": 0.55,
+      "evidence": [
+        {
+          "commit": "9a2d169fcf5c3cce7b0cd5971ca2786e1f72c210",
+          "date": "2026-05-18T14:25:45+02:00",
+          "subject": "fix generic typed dict `TypeError` on Python 3.10",
+          "issue_refs": [],
+          "source_files": [
+            "src/click/types.py"
+          ],
+          "test_files": [],
+          "signals": [
+            "guard:if t.TYPE_CHECKING:",
+            "guard:if t.TYPE_CHECKING:",
+            "guard:if t.TYPE_CHECKING:"
+          ],
+          "candidate_title": "Required behavior: generic typed dict `TypeError` on Python 3.10",
+          "confidence": 0.55
+        }
+      ],
+      "affected_files": [
+        "src/click/types.py"
+      ],
+      "recurrence": 1,
+      "protected_fixes": 0,
+      "unprotected_fixes": 1
+    },
+    {
+      "law_id": "LAW-028",
+      "title": "Required behavior: use `default=True` as a sentinel for non-boolean flags",
+      "confidence": 0.55,
+      "evidence": [
+        {
+          "commit": "bb7be1f6a91f3fd1267d1a6d68771273d593f9c7",
+          "date": "2026-03-02T13:17:20+04:00",
+          "subject": "Revert \"Use `default=True` as a sentinel for non-boolean flags\"",
+          "issue_refs": [],
+          "source_files": [
+            "src/click/core.py"
+          ],
+          "test_files": [],
+          "signals": [
+            "guard:if value is True and self.is_flag:"
+          ],
+          "candidate_title": "Required behavior: use `default=True` as a sentinel for non-boolean flags",
+          "confidence": 0.55
+        }
+      ],
+      "affected_files": [
+        "src/click/core.py"
+      ],
+      "recurrence": 1,
+      "protected_fixes": 0,
+      "unprotected_fixes": 1
+    }
+  ],
+  "summary": {
+    "law_count": 28,
+    "repeated_laws": 2,
+    "fixes_without_tests": 5
+  }
+}

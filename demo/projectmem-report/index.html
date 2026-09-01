@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bug Laws</title>
+<style>
+:root{--ink:#17211b;--paper:#f4f0e6;--card:#fffdf7;--red:#ba3f32;--green:#2e6a4f;--line:#d8d0bf}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 Inter,ui-sans-serif,system-ui,sans-serif}
+main{max-width:1120px;margin:auto;padding:64px 24px 96px}.eyebrow{font:700 12px/1.2 ui-monospace,monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--red)}
+h1{font:800 clamp(48px,8vw,96px)/.95 Georgia,serif;margin:12px 0 20px;letter-spacing:-.05em}.thesis{max-width:760px;font-size:20px;color:#455048}
+.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:40px 0}
+.summary div{background:var(--card);padding:20px}.summary strong{font:800 28px/1 ui-monospace,monospace;display:block}.summary span{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#657068}
+.notice{border-left:4px solid var(--red);padding:12px 16px;background:#fff8e8;margin-bottom:32px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.law-card{background:var(--card);border:1px solid var(--line);padding:24px;box-shadow:0 8px 30px #3d33230b}.law-card.repeated{border-top:5px solid var(--red)}
+.law-card header{display:flex;justify-content:space-between;gap:16px;font:700 12px/1.2 ui-monospace,monospace;color:var(--red)}.confidence{color:#6a746d}
+.law-card h2{font:700 25px/1.15 Georgia,serif;min-height:58px;margin:18px 0}.metrics{display:grid;grid-template-columns:repeat(3,1fr);border-block:1px solid var(--line)}
+.metrics div{padding:14px 4px}.metrics strong{display:block;font:800 22px/1 ui-monospace,monospace}.metrics span{font-size:11px;text-transform:uppercase;color:#6a746d}
+.files{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0}.files span{font:11px ui-monospace,monospace;background:#eee8dc;padding:5px 7px}
+details summary{cursor:pointer;font-weight:700}ul{padding-left:18px}li{margin:14px 0}li p{margin:6px 0}small{color:#6a746d}.commit{display:flex;gap:10px;align-items:center}
+.commit span{color:#6a746d}.commit b{margin-left:auto;font-size:10px;text-transform:uppercase;padding:3px 6px}.protected{color:var(--green);background:#e1f0e6}.test-gap{color:var(--red);background:#f8dfd8}
+footer{margin-top:48px;color:#6a746d;font-size:13px}.empty{padding:48px;background:var(--card)}
+@media(max-width:760px){.summary,.grid{grid-template-columns:1fr 1fr}}@media(max-width:520px){.summary,.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body><main>
+  <div class="eyebrow">Repository archaeology / candidate policy</div>
+  <h1>Bug Laws</h1>
+  <p class="thesis">Every bug fix writes a law. This report recovers candidate engineering invariants from history and shows which ones still lack regression-test protection.</p>
+  <section class="summary">
+    <div><strong>3</strong><span>candidate laws</span></div>
+    <div><strong>1</strong><span>repeated laws</span></div>
+    <div><strong>0</strong><span>test gaps</span></div>
+    <div><strong>4</strong><span>fixes inspected</span></div>
+  </section>
+  <p class="notice"><strong>Evidence, not authority.</strong> These are machine-recovered candidate laws. Accept, edit, or reject them before turning them into project policy.</p>
+  <section class="grid">
+    <article class="law-card repeated">
+      <header><code>LAW-001</code><div class="confidence">93% evidence confidence</div></header>
+      <h2>Fix operation must close target without clearing newer active issue</h2>
+      <div class="metrics">
+        <div><strong>2</strong><span>fixes</span></div>
+        <div><strong>2</strong><span>protected</span></div>
+        <div><strong>0</strong><span>test gaps</span></div>
+      </div>
+      <div class="files"><span>src/projectmem/cli.py</span><span>src/projectmem/commands/fix.py</span><span>src/projectmem/mcp_server.py</span></div>
+      <details><summary>Inspect evidence</summary><ul>
+            <li>
+              <div class="commit"><code>b5e7edd385</code><span>2026-06-19</span><b class="protected">protected</b></div>
+              <p>fix: allow fixing a specific issue</p>
+              <small>src/projectmem/cli.py, src/projectmem/commands/fix.py, src/projectmem/mcp_server.py</small>
+            </li>
+            
+            <li>
+              <div class="commit"><code>f83f827d0c</code><span>2026-06-19</span><b class="protected">protected</b></div>
+              <p>fix: allow fixing a specific issue (#2)</p>
+              <small>src/projectmem/cli.py, src/projectmem/commands/fix.py, src/projectmem/mcp_server.py</small>
+            </li>
+            </ul></details>
+    </article>
+    
+    <article class="law-card single">
+      <header><code>LAW-002</code><div class="confidence">95% evidence confidence</div></header>
+      <h2>Brief console helpers are cp1252 safe</h2>
+      <div class="metrics">
+        <div><strong>1</strong><span>fixes</span></div>
+        <div><strong>1</strong><span>protected</span></div>
+        <div><strong>0</strong><span>test gaps</span></div>
+      </div>
+      <div class="files"><span>src/projectmem/commands/brief.py</span><span>src/projectmem/commands/precheck.py</span></div>
+      <details><summary>Inspect evidence</summary><ul>
+            <li>
+              <div class="commit"><code>ac7881a8e5</code><span>2026-06-19</span><b class="protected">protected</b></div>
+              <p>fix: make console output encoding-safe (#5)</p>
+              <small>src/projectmem/commands/brief.py, src/projectmem/commands/precheck.py</small>
+            </li>
+            </ul></details>
+    </article>
+    
+    <article class="law-card single">
+      <header><code>LAW-003</code><div class="confidence">95% evidence confidence</div></header>
+      <h2>Git helpers must detach stdin and keep timeouts</h2>
+      <div class="metrics">
+        <div><strong>1</strong><span>fixes</span></div>
+        <div><strong>1</strong><span>protected</span></div>
+        <div><strong>0</strong><span>test gaps</span></div>
+      </div>
+      <div class="files"><span>src/projectmem/commands/context.py</span><span>src/projectmem/commands/precheck.py</span><span>src/projectmem/staleness.py</span><span>src/projectmem/storage.py</span></div>
+      <details><summary>Inspect evidence</summary><ul>
+            <li>
+              <div class="commit"><code>d259d0b852</code><span>2026-06-19</span><b class="protected">protected</b></div>
+              <p>fix: harden MCP git helpers against stdio hangs (#4)</p>
+              <small>src/projectmem/commands/context.py, src/projectmem/commands/precheck.py, src/projectmem/staleness.py, src/projectmem/storage.py</small>
+            </li>
+            </ul></details>
+    </article>
+    </section>
+  <footer>Repository: github.com/riponcm/projectmem · Generated 2026-08-31T23:54:28.671513+00:00</footer>
+</main></body></html>

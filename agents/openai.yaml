@@ -1,0 +1,8 @@
+interface:
+  display_name: "Bug Laws | Engineering Archaeology"
+  short_description: "Mine Git history for evidence-backed engineering laws"
+  brand_color: "#7C3AED"
+  default_prompt: "Use $bug-laws to recover evidence-linked candidate laws from this repository's bug-fix history and produce a review-ready report."
+
+policy:
+  allow_implicit_invocation: true

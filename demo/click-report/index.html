@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bug Laws</title>
+<style>
+:root{--ink:#17211b;--paper:#f4f0e6;--card:#fffdf7;--red:#ba3f32;--green:#2e6a4f;--line:#d8d0bf}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 Inter,ui-sans-serif,system-ui,sans-serif}
+main{max-width:1120px;margin:auto;padding:64px 24px 96px}.eyebrow{font:700 12px/1.2 ui-monospace,monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--red)}
+h1{font:800 clamp(48px,8vw,96px)/.95 Georgia,serif;margin:12px 0 20px;letter-spacing:-.05em}.thesis{max-width:760px;font-size:20px;color:#455048}
+.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:40px 0}
+.summary div{background:var(--card);padding:20px}.summary strong{font:800 28px/1 ui-monospace,monospace;display:block}.summary span{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#657068}
+.notice{border-left:4px solid var(--red);padding:12px 16px;background:#fff8e8;margin-bottom:32px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.law-card{background:var(--card);border:1px solid var(--line);padding:24px;box-shadow:0 8px 30px #3d33230b}.law-card.repeated{border-top:5px solid var(--red)}
+.law-card header{display:flex;justify-content:space-between;gap:16px;font:700 12px/1.2 ui-monospace,monospace;color:var(--red)}.confidence{color:#6a746d}
+.law-card h2{font:700 25px/1.15 Georgia,serif;min-height:58px;margin:18px 0}.metrics{display:grid;grid-template-columns:repeat(3,1fr);border-block:1px solid var(--line)}
+.metrics div{padding:14px 4px}.metrics strong{display:block;font:800 22px/1 ui-monospace,monospace}.metrics span{font-size:11px;text-transform:uppercase;color:#6a746d}
+.files{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0}.files span{font:11px ui-monospace,monospace;background:#eee8dc;padding:5px 7px}
+details summary{cursor:pointer;font-weight:700}ul{padding-left:18px}li{margin:14px 0}li p{margin:6px 0}small{color:#6a746d}.commit{display:flex;gap:10px;align-items:center}
+.commit span{color:#6a746d}.commit b{margin-left:auto;font-size:10px;text-transform:uppercase;padding:3px 6px}.protected{color:var(--green);background:#e1f0e6}.test-gap{color:var(--red);background:#f8dfd8}
+footer{margin-top:48px;color:#6a746d;font-size:13px}.empty{padding:48px;background:var(--card)}
+@media(max-width:760px){.summary,.grid{grid-template-columns:1fr 1fr}}@media(max-width:520px){.summary,.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body><main>
+  <div class="eyebrow">Repository archaeology / candidate policy</div>
+  <h1>Bug Laws</h1>
+  <p class="thesis">Every bug fix writes a law. This report recovers candidate engineering invariants from history and shows which ones still lack regression-test protection.</p>
+  <section class="summary">
+    <div><strong>28</strong><span>candidate laws</span></div>
+    <div><strong>2</strong><span>repeated laws</span></div>
+    <div><strong>5</strong><span>test gaps</span></div>
+    <div><strong>80</strong><span>fixes inspected</span></div>
+  </section>
+  <p class="notice"><strong>Evidence, not authority.</strong> These are machine-recovered candidate laws. Accept, edit, or reject them before turning them into project policy.</p>
+  <section class="grid">
+    <article class="law-card repeated">
+      <header><code>LAW-001</code><div class="confidence">80% evidence confidence</div></header>
+      <h2>Fish multiline help complete</h2>
+      <div class="metrics">
+        <div><strong>3</strong><span>fixes</span></div>
+        <div><strong>3</strong><span>protected</span></div>
+        <div><strong>0</strong><span>test gaps</span></div>
+      </div>
+      <div class="files"><span>src/click/shell_completion.py</span></div>
+      <details><summary>Inspect evidence</summary><ul>
+            <li>
+              <div class="commit"><code>19fd4d6e18</code><span>2026-04-30</span><b class="protected">protected</b></div>
+              <p>Fix: Ensure fish completion handles multiline help strings correctly (#3126)</p>
+              <small>src/click/shell_completion.py</small>
+            </li>
+            
+            <li>
+              <div class="commit"><code>b7e5fd4cc7</code><span>2026-05-23</span><b class="protected">protected</b></div>
+              <p>Fix broken fish completion and multiline help string</p>
+              <small>src/click/shell_completion.py</small>
+            </li>
+            
+            <li>
+              <div class="commit"><code>c3535905c7</code><span>2026-05-23</span><b class="protected">protected</b></div>
+              <p>Fix broken fish completion and multiline help string</p>
+              <small>src/click/shell_completion.py</small>
+            </li>
+            </ul></details>
+    </article>
+    
+    <article class="law-card repeated">
+      <header><code>LAW-002</code><div class="confidence">93% evidence confidence</div></header>
+      <h2>Flag value optional behavior</h2>
+      <div class="metrics">
+        <div><strong>2</strong><span>fixes</span></div>
+        <div><strong>2</strong><span>protected</span></div>
+        <div><strong>0</strong><span>test gaps</span></div>
+      </div>
+      <div class="files"><span>src/click/core.py</span></div>
+      <details><summary>Inspect evidence</summary><ul>
+            <li>
+              <div class="commit"><code>4fd2fea0db</code><span>2025-05-20</span><b class="protected">protected</b></div>
+              <p>Fix condition for setting flag value when type is provided</p>
+              <small>src/click/core.py</small>
+            </li>
+            
+            <li>
+              <div class="commit"><code>91de59c6c8</code><span>2025-10-07</span><b class="protected">protected</b></div>
+              <p>Fix #3084: Correct flag optional value behavior and add comprehensive tests</p>
+              <small>src/click/core.py</small>
+            </li>
+            </ul></details>
+    </article>
+    
+    <article class="law-card single">
+      <header><code>LAW-003</code><div class="confidence">95% evidence confidence</div></header>
+      <h2>Full prompt passed to readline</h2>
+      <div class="metrics">
+        <div><strong>1</strong><span>fixes</span></div>
+        <div><strong>1</strong><span>protected</span></div>
+        <div><strong>0</strong><span>test gaps</span></div>
+      </div>
+      <div class="files"><span>src/click/termui.py</span></div>
+      <details><summary>Inspect evidence</summary><ul>
+            <li>
+              <div class="commit"><code>2468b70997</code><span>2026-04-29</span><b class="protected">protected</b></div>
+              <p>Fix readline backspace/line-wrapping on linux (#2969)</p>
+              <small>src/click/termui.py</small>
+            </li>
+            </ul></details>
+    </article>
+    
+    <article class="law-card single">
+      <header><code>LAW-004</code><div class="confidence">95% evidence confidence</div></header>
+      <h2>Zsh full complete with colons</h2>
+      <div class="metrics">
+        <div><strong>1</strong><span>fixes</span></div>
+        <div><strong>1</strong><span>protected</span></div>
+        <div><strong>0</strong><span>test gaps</span></div>
+      </div>
+      <div class="files"><span>src/click/shell_completion.py</span></div>
+      <details><summary>Inspect evidence</summary><ul>
+            <li>
+              <div class="commit"><code>a1235aacb1</code><span>2025-07-21</span><b class="protected">protected</b></div>
+              <p>Fix Zsh completions with colons (#2846)</p>
+              <small>src/click/shell_completion.py</small>
+            </li>
+            </ul></details>
+    </article>
+    
+    <article class="law-card single">
+      <header><code>LAW-005</code><div class="confidence">90% evidence confidence</div></header>
+      <h2>Version option resolves import name to distribution</h2>
+      <div class="metrics">
+        <div><strong>1</strong><span>fixes</span></div>
+        <div><strong>1</strong><span>protected</span></div>
+        <div><strong>0</strong><span>test gaps</span></div>
+      </div>
+      <div class="files"><span>src/click/decorators.py</span></div>
+      <details><summary>Inspect evidence</summary><ul>
+            <li>
+              <div class="commit"><code>bec59289d8</code><span>2026-06-11</span><b class="protected">protected</b></div>
+              <p>Fix `package_name` resolution when top-level module differs from distribution name</p>
+              <small>src/click/decorators.py</small>
+            </li>
+            </ul></details>
+    </article>
+    
+    <article class="law-card single">
+      <header><code>LAW-006</code><div class="confidence">90% evidence confidence</div></header>
+      <h2>Choice argument optional metavar</h2>
+      <div class="metrics">
+        <div><strong>1</strong><span>fixes</span></div>
+        <div><strong>1</strong><span>protected</span></div>
+        <div><strong>0</strong><span>test gaps</span></div>
+      </div>
+      <div class="files"><span>src/click/core.py</span></div>
+      <details><summary>Inspect evidence</summary><ul>
+            <li>
+              <div class="commit"><code>762c97eef7</code><span>2026-06-10</span><b class="protected">protected</b></div>
+              <p>Fix double-bracketing of choices in synopsis</p>
+              <small>src/click/core.py</small>
+            </li>
+            </ul></details>
+    </article>
+    
+    <article class="law-card single">
+      <header><code>LAW-007</code><div class="confidence">90% evidence confidence</div></header>
+      <h2>Echo via pager yields before exception</h2>
+      <div class="metrics">
+        <div><strong>1</strong><span>fixes</span></div>
+        <div><strong>1</strong><span>protected</span></div>
+        <div><strong>0</strong><span>test gaps</span></div>
+      </div>
+      <div class="files"><span>src/click/_compat.py</span></div>
+      <details><summary>Inspect evidence</summary><ul>
+            <li>
+              <div class="commit"><code>7eb57cff7c</code><span>2026-05-22</span><b class="protected">protected</b></div>
+              <p>Fix pager test race by raising before yield</p>
+              <small>src/click/_compat.py</small>
+            </li>
+            </ul></details>
+    </article>
+    
+    <article class="law-card single">
+      <header><code>LAW-008</code><div class="confidence">90% evidence confidence</div></header>
+      <h2>Deprecated empty help no leading space</h2>
+      <div class="metrics">
+        <div><strong>1</strong><span>fixes</span></div>
+        <div><strong>1</strong><span>protected</span></div>
+        <div><strong>0</strong><span>test gaps</span></div>
+      </div>
+      <div class="files"><span>src/click/core.py</span></div>
+      <details><summary>Inspect evidence</summary><ul>
+            <li>
+              <div class="commit"><code>82f377c547</code><span>2026-05-23</span><b class="protected">protected</b></div>
+              <p>Fix deprecated label formatting</p>
+              <small>src/click/core.py</small>
+            </li>
+            </ul></details>
+    </article>
+    
+    <article class="law-card single">
+      <header><code>LAW-009</code><div class="confidence">90% evidence confidence</div></header>
+      <h2>Parameter source during paramtype convert</h2>
+      <div class="metrics">
+        <div><strong>1</strong><span>fixes</span></div>
+        <div><strong>1</strong><span>protected</span></div>
+        <div><strong>0</strong><span>test gaps</span></div>
+      </div>
+      <div class="files"><span>src/click/core.py</span></div>
+      <details><summary>Inspect evidence</summary><ul>
+            <li>
+              <div class="commit"><code>7d05a59b9d</code><span>2026-05-19</span><b class="protected">protected</b></div>
+              <p>Fix get_parameter_source() during type conversion and eager callbacks</p>
+              <small>src/click/core.py</small>
+            </li>
+            </ul></details>
+    </article>
+    
+    <article class="law-card single">
+      <header><code>LAW-010</code><div class="confidence">90% evidence confidence</div></header>
+      <h2>Help formatter write usage</h2>
+      <div class="metrics">
+        <div><strong>1</strong><span>fixes</span></div>
+        <div><strong>1</strong><span>protected</span></div>
+        <div><strong>0</strong><span>test gaps</span></div>
+      </div>
+      <div class="files"><span>src/click/formatting.py</span></div>
+      <details><summary>Inspect evidence</summary><ul>
+            <li>
+              <div class="commit"><code>0551bf5358</code><span>2026-05-16</span><b class="protected">protected</b></div>
+              <p>Fix `HelpFormatter.write_usage` producing spurious characters</p>
+              <small>src/click/formatting.py</small>
+            </li>
+            </ul></details>
+    </article>
+    
+    <article class="law-card single">
+      <header><code>LAW-011</code><div class="confidence">90% evidence confidence</div></header>
+      <h2>Bool flag group competition</h2>
+      <div class="metrics">
+        <div><strong>1</strong><span>fixes</span></div>
+        <div><strong>1</strong><span>protected</span></div>
+        <div><strong>0</strong><span>test gaps</span></div>
+      </div>
+      <div class="files"><span>src/click/core.py</span></div>
+      <details><summary>Inspect evidence</summary><ul>
+            <li>
+              <div class="commit"><code>0f71fe771c</code><span>2026-05-15</span><b class="protected">protected</b></div>
+              <p>Fix dual-option arbitration to respect explicit defaults</p>
+              <small>src/click/core.py</small>
+            </li>
+            </ul></details>
+    </article>
+    
+    <article class="law-card single">
+      <header><code>LAW-012</code><div class="confidence">90% evidence confidence</div></header>
+      <h2>Hide input error message</h2>
+      <div class="metrics">
+        <div><strong>1</strong><span>fixes</span></div>
+        <div><strong>1</strong><span>protected</span></div>
+        <div><strong>0</strong><span>test gaps</span></div>
+      </div>
+      <div class="files"><span>src/click/termui.py</span></div>
+      <details><summary>Inspect evidence</summary><ul>
+            <li>
+              <div class="commit"><code>a09c1c655e</code><span>2026-03-11</span><b class="protected">protected</b></div>
+              <p>fix: show custom error message in prompt with hide_input=True</p>
+              <small>src/click/termui.py</small>
+            </li>
+            </ul></details>
+    </article>
+    
+    <article class="law-card single">
+      <header><code>LAW-013</code><div class="confidence">90% evidence confidence</div></header>
+      <h2>Show default with empty string</h2>
+      <div class="metrics">
+        <div><strong>1</strong><span>fixes</span></div>
+        <div><strong>1</strong><span>protected</span></div>
+        <div><strong>0</strong><span>test gaps</span></div>
+      </div>
+      <div class="files"><span>src/click/core.py</span></div>
+      <details><summary>Inspect evidence</summary><ul>
+            <li>
+              <div class="commit"><code>d340b0c120</code><span>2026-04-01</span><b class="protected">protected</b></div>
+              <p>Fix speculative speculative empty string check</p>
+              <small>src/click/core.py</small>
+            </li>
+            </ul></details>
+    </article>
+    
+    <article class="law-card single">
+      <header><code>LAW-014</code><div class="confidence">90% evidence confidence</div></header>
+      <h2>Default map with callable flag value</h2>
+      <div class="metrics">
+        <div><strong>1</strong><span>fixes</span></div>
+        <div><strong>1</strong><span>protected</span></div>
+        <div><strong>0</strong><span>test gaps</span></div>
+      </div>
+      <div class="files"><span>src/click/core.py</span></div>
+      <details><summary>Inspect evidence</summary><ul>
+            <li>
+              <div class="commit"><code>546f2851f4</code><span>2026-02-21</span><b class="protected">protected</b></div>
+              <p>Fix callable ``flag_value`` being instantiated when used as a default</p>
+              <small>src/click/core.py</small>
+            </li>
+            </ul></details>
+    </article>
+    
+    <article class="law-card single">
+      <header><code>LAW-015</code><div class="confidence">90% evidence confidence</div></header>
+      <h2>Shared param prefers first default</h2>
+      <div class="metrics">
+        <div><strong>1</strong><span>fixes</span></div>
+        <div><strong>1</strong><span>protected</span></div>
+        <div><strong>0</strong><span>test gaps</span></div>
+      </div>
+      <div class="files"><span>src/click/core.py</span></div>
+      <details><summary>Inspect evidence</summary><ul>
+            <li>
+              <div class="commit"><code>1c20dc6e72</code><span>2025-09-22</span><b class="protected">protected</b></div>
+              <p>Fix default handling to defer UNSET normalization</p>
+              <small>src/click/core.py</small>
+            </li>
+            </ul></details>
+    </article>
+    
+    <article class="law-card single">
+      <header><code>LAW-016</code><div class="confidence">90% evidence confidence</div></header>
+      <h2>Choice default rendering</h2>
+      <div class="metrics">
+        <div><strong>1</strong><span>fixes</span></div>
+        <div><strong>1</strong><span>protected</span></div>
+        <div><strong>0</strong><span>test gaps</span></div>
+      </div>
+      <div class="files"><span>src/click/core.py</span><span>src/click/exceptions.py</span><span>src/click/shell_completion.py</span><span>src/click/testing.py</span></div>
+      <details><summary>Inspect evidence</summary><ul>
+            <li>
+              <div class="commit"><code>e252437313</code><span>2025-07-22</span><b class="protected">protected</b></div>
+              <p>Revert &quot;Revert &quot;Merge Stable into master&quot;&quot;</p>
+              <small>src/click/core.py, src/click/exceptions.py, src/click/shell_completion.py, src/click/testing.py</small>
+            </li>
+            </ul></details>
+    </article>
+    
+    <article class="law-card single">
+      <header><code>LAW-017</code><div class="confidence">90% evidence confidence</div></header>
+      <h2>Nested group</h2>
+      <div class="metrics">
+        <div><strong>1</strong><span>fixes</span></div>
+        <div><strong>1</strong><span>protected</span></div>
+        <div><strong>0</strong><span>test gaps</span></div>
+      </div>
+      <div class="files"><span>src/click/shell_completion.py</span></div>
+      <details><summary>Inspect evidence</summary><ul>
+            <li>
+              <div class="commit"><code>ac6a2acfdb</code><span>2025-05-12</span><b class="protected">protected</b></div>
+              <p>Fix shell completion for nested groups</p>
+              <small>src/click/shell_completion.py</small>
+            </li>
+            </ul></details>
+    </article>
+    
+    <article class="law-card single">
+      <header><code>LAW-018</code><div class="confidence">78% evidence confidence</div></header>
+      <h2>Required behavior: completions for quoted/escaped parameters in Fish</h2>
+      <div class="metrics">
+        <div><strong>1</strong><span>fixes</span></div>
+        <div><strong>1</strong><span>protected</span></div>
+        <div><strong>0</strong><span>test gaps</span></div>
+      </div>
+      <div class="files"><span>src/click/shell_completion.py</span></div>
+      <details><summary>Inspect evidence</summary><ul>
+            <li>
+              <div class="commit"><code>701b313160</code><span>2025-08-09</span><b class="protected">protected</b></div>
+              <p>Fix completions for quoted/escaped parameters in Fish (#3013)</p>
+              <small>src/click/shell_completion.py</small>
+            </li>
+            </ul></details>
+    </article>
+    
+    <article class="law-card single">
+      <header><code>LAW-019</code><div class="confidence">73% evidence confidence</div></header>
+      <h2>Required behavior: rendering when `prompt_suffix` is empty</h2>
+      <div class="metrics">
+        <div><strong>1</strong><span>fixes</span></div>
+        <div><strong>1</strong><span>protected</span></div>
+        <div><strong>0</strong><span>test gaps</span></div>
+      </div>
+      <div class="files"><span>src/click/termui.py</span></div>
+      <details><summary>Inspect evidence</summary><ul>
+            <li>
+              <div class="commit"><code>812b8000f7</code><span>2025-07-28</span><b class="protected">protected</b></div>
+              <p>Fix rendering when `prompt_suffix` is empty</p>
+              <small>src/click/termui.py</small>
+            </li>
+            </ul></details>
+    </article>
+    
+    <article class="law-card single">
+      <header><code>LAW-020</code><div class="confidence">73% evidence confidence</div></header>
+      <h2>Required behavior: merge Stable into master</h2>
+      <div class="metrics">
+        <div><strong>1</strong><span>fixes</span></div>
+        <div><strong>1</strong><span>protected</span></div>
+        <div><strong>0</strong><span>test gaps</span></div>
+      </div>
+      <div class="files"><span>src/click/core.py</span><span>src/click/exceptions.py</span><span>src/click/shell_completion.py</span><span>src/click/testing.py</span></div>
+      <details><summary>Inspect evidence</summary><ul>
+            <li>
+              <div class="commit"><code>8bc9127107</code><span>2025-07-22</span><b class="protected">protected</b></div>
+              <p>Revert &quot;Merge Stable into master&quot;</p>
+              <small>src/click/core.py, src/click/exceptions.py, src/click/shell_completion.py, src/click/testing.py</small>
+            </li>
+            </ul></details>
+    </article>
+    
+    <article class="law-card single">
+      <header><code>LAW-021</code><div class="confidence">73% evidence confidence</div></header>
+      <h2>Required behavior: reconciliation of envvar with default, flag_value and type parameters for flag options</h2>
+      <div class="metrics">
+        <div><strong>1</strong><span>fixes</span></div>
+        <div><strong>1</strong><span>protected</span></div>
+        <div><strong>0</strong><span>test gaps</span></div>
+      </div>
+      <div class="files"><span>src/click/core.py</span><span>src/click/types.py</span></div>
+      <details><summary>Inspect evidence</summary><ul>
+            <li>
+              <div class="commit"><code>9caedb9206</code><span>2025-05-28</span><b class="protected">protected</b></div>
+              <p>Fix reconciliation of envvar with default, flag_value and type parameters for flag options</p>
+              <small>src/click/core.py, src/click/types.py</small>
+            </li>
+            </ul></details>
+    </article>
+    
+    <article class="law-card single">
+      <header><code>LAW-022</code><div class="confidence">73% evidence confidence</div></header>
+      <h2>Required behavior: testing/CliRunner: Fix regression related to EOF introduced in 262bdf0</h2>
+      <div class="metrics">
+        <div><strong>1</strong><span>fixes</span></div>
+        <div><strong>1</strong><span>protected</span></div>
+        <div><strong>0</strong><span>test gaps</span></div>
+      </div>
+      <div class="files"><span>src/click/testing.py</span></div>
+      <details><summary>Inspect evidence</summary><ul>
+            <li>
+              <div class="commit"><code>93c6966eb3</code><span>2025-05-22</span><b class="protected">protected</b></div>
+              <p>testing/CliRunner: Fix regression related to EOF introduced in 262bdf0</p>
+              <small>src/click/testing.py</small>
+            </li>
+            </ul></details>
+    </article>
+    
+    <article class="law-card single">
+      <header><code>LAW-023</code><div class="confidence">63% evidence confidence</div></header>
+      <h2>Required behavior: skip flaky pager test on macOS with free-threaded Python 3.14t</h2>
+      <div class="metrics">
+        <div><strong>1</strong><span>fixes</span></div>
+        <div><strong>1</strong><span>protected</span></div>
+        <div><strong>0</strong><span>test gaps</span></div>
+      </div>
+      <div class="files"><span>src/click/_compat.py</span></div>
+      <details><summary>Inspect evidence</summary><ul>
+            <li>
+              <div class="commit"><code>d15f3c23a1</code><span>2026-05-18</span><b class="protected">protected</b></div>
+              <p>fix: Skip flaky pager test on macOS with free-threaded Python 3.14t</p>
+              <small>src/click/_compat.py</small>
+            </li>
+            </ul></details>
+    </article>
+    
+    <article class="law-card single">
+      <header><code>LAW-024</code><div class="confidence">60% evidence confidence</div></header>
+      <h2>Required behavior: sentinel typing and its uses in parser</h2>
+      <div class="metrics">
+        <div><strong>1</strong><span>fixes</span></div>
+        <div><strong>0</strong><span>protected</span></div>
+        <div><strong>1</strong><span>test gaps</span></div>
+      </div>
+      <div class="files"><span>src/click/_utils.py</span><span>src/click/core.py</span><span>src/click/parser.py</span></div>
+      <details><summary>Inspect evidence</summary><ul>
+            <li>
+              <div class="commit"><code>73e1550065</code><span>2026-05-04</span><b class="test-gap">test gap</b></div>
+              <p>Fix sentinel typing and its uses in parser (#3396)</p>
+              <small>src/click/_utils.py, src/click/core.py, src/click/parser.py</small>
+            </li>
+            </ul></details>
+    </article>
+    
+    <article class="law-card single">
+      <header><code>LAW-025</code><div class="confidence">60% evidence confidence</div></header>
+      <h2>Required behavior: `_termui_impl.open_url()` — &#x27;start&#x27; on Windows is a cmd built-in, not an executable</h2>
+      <div class="metrics">
+        <div><strong>1</strong><span>fixes</span></div>
+        <div><strong>0</strong><span>protected</span></div>
+        <div><strong>1</strong><span>test gaps</span></div>
+      </div>
+      <div class="files"><span>src/click/_termui_impl.py</span></div>
+      <details><summary>Inspect evidence</summary><ul>
+            <li>
+              <div class="commit"><code>c5cced7b30</code><span>2026-04-30</span><b class="test-gap">test gap</b></div>
+              <p>fix: `_termui_impl.open_url()` — &#x27;start&#x27; on Windows is a cmd built-in, not an executable (#3186)</p>
+              <small>src/click/_termui_impl.py</small>
+            </li>
+            </ul></details>
+    </article>
+    
+    <article class="law-card single">
+      <header><code>LAW-026</code><div class="confidence">55% evidence confidence</div></header>
+      <h2>Required behavior: ruff E501 line-too-long in PowerShell template</h2>
+      <div class="metrics">
+        <div><strong>1</strong><span>fixes</span></div>
+        <div><strong>0</strong><span>protected</span></div>
+        <div><strong>1</strong><span>test gaps</span></div>
+      </div>
+      <div class="files"><span>src/click/shell_completion.py</span></div>
+      <details><summary>Inspect evidence</summary><ul>
+            <li>
+              <div class="commit"><code>1ac08db953</code><span>2026-06-26</span><b class="test-gap">test gap</b></div>
+              <p>Fix ruff E501 line-too-long in PowerShell template</p>
+              <small>src/click/shell_completion.py</small>
+            </li>
+            </ul></details>
+    </article>
+    
+    <article class="law-card single">
+      <header><code>LAW-027</code><div class="confidence">55% evidence confidence</div></header>
+      <h2>Required behavior: generic typed dict `TypeError` on Python 3.10</h2>
+      <div class="metrics">
+        <div><strong>1</strong><span>fixes</span></div>
+        <div><strong>0</strong><span>protected</span></div>
+        <div><strong>1</strong><span>test gaps</span></div>
+      </div>
+      <div class="files"><span>src/click/types.py</span></div>
+      <details><summary>Inspect evidence</summary><ul>
+            <li>
+              <div class="commit"><code>9a2d169fcf</code><span>2026-05-18</span><b class="test-gap">test gap</b></div>
+              <p>fix generic typed dict `TypeError` on Python 3.10</p>
+              <small>src/click/types.py</small>
+            </li>
+            </ul></details>
+    </article>
+    
+    <article class="law-card single">
+      <header><code>LAW-028</code><div class="confidence">55% evidence confidence</div></header>
+      <h2>Required behavior: use `default=True` as a sentinel for non-boolean flags</h2>
+      <div class="metrics">
+        <div><strong>1</strong><span>fixes</span></div>
+        <div><strong>0</strong><span>protected</span></div>
+        <div><strong>1</strong><span>test gaps</span></div>
+      </div>
+      <div class="files"><span>src/click/core.py</span></div>
+      <details><summary>Inspect evidence</summary><ul>
+            <li>
+              <div class="commit"><code>bb7be1f6a9</code><span>2026-03-02</span><b class="test-gap">test gap</b></div>
+              <p>Revert &quot;Use `default=True` as a sentinel for non-boolean flags&quot;</p>
+              <small>src/click/core.py</small>
+            </li>
+            </ul></details>
+    </article>
+    </section>
+  <footer>Repository: github.com/pallets/click · Generated 2026-08-31T23:54:36.292119+00:00</footer>
+</main></body></html>

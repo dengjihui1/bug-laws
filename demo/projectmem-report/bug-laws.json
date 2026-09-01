@@ -1,0 +1,183 @@
+{
+  "repository": "github.com/riponcm/projectmem",
+  "generated_at": "2026-08-31T23:54:28.671513+00:00",
+  "since": null,
+  "commits_seen": 21,
+  "candidate_commits": 4,
+  "laws": [
+    {
+      "law_id": "LAW-001",
+      "title": "Fix operation must close target without clearing newer active issue",
+      "confidence": 0.93,
+      "evidence": [
+        {
+          "commit": "b5e7edd385697358204ec0b714757f808bac17a7",
+          "date": "2026-06-19T13:31:29-05:00",
+          "subject": "fix: allow fixing a specific issue",
+          "issue_refs": [],
+          "source_files": [
+            "src/projectmem/cli.py",
+            "src/projectmem/commands/fix.py",
+            "src/projectmem/mcp_server.py"
+          ],
+          "test_files": [
+            "tests/test_log.py"
+          ],
+          "signals": [
+            "guard:if issue_id is None:",
+            "guard:if not cleaned:",
+            "guard:if cleaned.isdigit():",
+            "guard:if requested_issue_id is not None:",
+            "guard:if not _issue_exists(events, issue_id):",
+            "guard:raise ProjectMemError(",
+            "guard:if requested_issue_id is None or active_issue_id == issue_id:",
+            "test:test_fix_issue_closes_target_without_clearing_newer_active_issue",
+            "guard:assert result.exit_code == 0",
+            "guard:assert \"Fixed issue #0001\" in result.stdout",
+            "guard:assert (",
+            "guard:assert events[-1][\"type\"] == \"fix\""
+          ],
+          "candidate_title": "Fix operation must close target without clearing newer active issue",
+          "confidence": 0.9
+        },
+        {
+          "commit": "f83f827d0c1f686c909d0a1f3c12d9c5eecd7486",
+          "date": "2026-06-19T15:52:49-05:00",
+          "subject": "fix: allow fixing a specific issue (#2)",
+          "issue_refs": [
+            "2"
+          ],
+          "source_files": [
+            "src/projectmem/cli.py",
+            "src/projectmem/commands/fix.py",
+            "src/projectmem/mcp_server.py"
+          ],
+          "test_files": [
+            "tests/test_log.py"
+          ],
+          "signals": [
+            "guard:if issue_id is None:",
+            "guard:if not cleaned:",
+            "guard:if cleaned.isdigit():",
+            "guard:if requested_issue_id is not None:",
+            "guard:if not _issue_exists(events, issue_id):",
+            "guard:raise ProjectMemError(",
+            "guard:if requested_issue_id is None or active_issue_id == issue_id:",
+            "test:test_fix_issue_closes_target_without_clearing_newer_active_issue",
+            "guard:assert result.exit_code == 0",
+            "guard:assert \"Fixed issue #0001\" in result.stdout",
+            "guard:assert (",
+            "guard:assert events[-1][\"type\"] == \"fix\""
+          ],
+          "candidate_title": "Fix operation must close target without clearing newer active issue",
+          "confidence": 0.95
+        }
+      ],
+      "affected_files": [
+        "src/projectmem/cli.py",
+        "src/projectmem/commands/fix.py",
+        "src/projectmem/mcp_server.py"
+      ],
+      "recurrence": 2,
+      "protected_fixes": 2,
+      "unprotected_fixes": 0
+    },
+    {
+      "law_id": "LAW-002",
+      "title": "Brief console helpers are cp1252 safe",
+      "confidence": 0.95,
+      "evidence": [
+        {
+          "commit": "ac7881a8e5fd26e346bbb744a61572418669fb03",
+          "date": "2026-06-19T16:39:02-05:00",
+          "subject": "fix: make console output encoding-safe (#5)",
+          "issue_refs": [
+            "5"
+          ],
+          "source_files": [
+            "src/projectmem/commands/brief.py",
+            "src/projectmem/commands/precheck.py"
+          ],
+          "test_files": [
+            "tests/test_v014_features.py"
+          ],
+          "signals": [
+            "guard:except UnicodeEncodeError:",
+            "guard:if \"utf\" in encoding:",
+            "guard:except UnicodeEncodeError:",
+            "guard:if \"utf\" in encoding:",
+            "test:test_brief_console_helpers_are_cp1252_safe",
+            "guard:assert brief._rule() == \"-\" * 60",
+            "test:test_precheck_console_helpers_are_cp1252_safe",
+            "guard:assert precheck._rule() == \"-\" * 60"
+          ],
+          "candidate_title": "Brief console helpers are cp1252 safe",
+          "confidence": 0.95
+        }
+      ],
+      "affected_files": [
+        "src/projectmem/commands/brief.py",
+        "src/projectmem/commands/precheck.py"
+      ],
+      "recurrence": 1,
+      "protected_fixes": 1,
+      "unprotected_fixes": 0
+    },
+    {
+      "law_id": "LAW-003",
+      "title": "Git helpers must detach stdin and keep timeouts",
+      "confidence": 0.95,
+      "evidence": [
+        {
+          "commit": "d259d0b8526e89b260b2fcafef42ab9f0110d7c2",
+          "date": "2026-06-19T16:23:27-05:00",
+          "subject": "fix: harden MCP git helpers against stdio hangs (#4)",
+          "issue_refs": [
+            "4"
+          ],
+          "source_files": [
+            "src/projectmem/commands/context.py",
+            "src/projectmem/commands/precheck.py",
+            "src/projectmem/staleness.py",
+            "src/projectmem/storage.py"
+          ],
+          "test_files": [
+            "tests/test_hooks_path.py",
+            "tests/test_mcp_server.py",
+            "tests/test_v014_features.py"
+          ],
+          "signals": [
+            "guard:except (OSError, subprocess.CalledProcessError, subprocess.TimeoutExpired):",
+            "guard:if not bash:",
+            "guard:except (OSError, subprocess.TimeoutExpired) as exc:",
+            "guard:if result.returncode != 0:",
+            "guard:if result.returncode != 0:",
+            "guard:if \"wsl\" in lowered or \"bash/\" in lowered:",
+            "guard:assert result.returncode == 0, f\"hook errored: {reason}\"",
+            "test:test_git_helpers_detach_stdin_and_keep_timeouts",
+            "guard:if args[:2] == [\"git\", \"status\"]:",
+            "guard:if args[:2] == [\"git\", \"rev-parse\"]:",
+            "guard:assert storage.get_git_commit(tmp_path) == \"abc123\"",
+            "guard:assert ("
+          ],
+          "candidate_title": "Git helpers must detach stdin and keep timeouts",
+          "confidence": 0.95
+        }
+      ],
+      "affected_files": [
+        "src/projectmem/commands/context.py",
+        "src/projectmem/commands/precheck.py",
+        "src/projectmem/staleness.py",
+        "src/projectmem/storage.py"
+      ],
+      "recurrence": 1,
+      "protected_fixes": 1,
+      "unprotected_fixes": 0
+    }
+  ],
+  "summary": {
+    "law_count": 3,
+    "repeated_laws": 1,
+    "fixes_without_tests": 0
+  }
+}
