@@ -35,6 +35,26 @@ Protection: 1 fix changed tests; 2 did not
 Evidence: commit hashes, issue references, files, guards, test names
 ```
 
+## How it works
+
+```mermaid
+flowchart LR
+    A[Local Git repository] --> B[Select bug-fix, regression, revert history]
+    B --> C[Extract commits, files, tests, guards, symbols]
+    C --> D[Build evidence-linked candidate laws]
+    D --> E[Group recurring patterns with explained similarity]
+    E --> F[Render Markdown, JSON, and HTML evidence wall]
+    F --> G{Explicit review decision}
+    G -->|Accept or edit| H[Export accepted-laws.json]
+    G -->|Reject or unscorable| I[Keep decision separate]
+    D -. optional public corroboration .-> J[Issue/PR enrichment]
+    J -. preserves source evidence .-> F
+```
+
+The key boundary is intentional: extraction can be automatic, but project
+guidance is created only through an explicit review decision. The scanner never
+writes back into the source repository.
+
 ## Why this is different
 
 - Git documents what changed. Bug Laws asks what invariant the failure proved.
