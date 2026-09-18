@@ -1,5 +1,7 @@
 # Bug Laws
 
+![Jihui](assets/brand/jihui-wordmark.png)
+
 > Every bug fix writes a law. Most repositories forget to publish it.
 
 The public package includes the executable workflow, reproducible demos, release checks, and evidence boundaries needed to inspect every result.
